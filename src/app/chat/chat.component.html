@@ -1,1 +1,26 @@
-<p>chat works!</p>
+<div id="chat">
+    <div id="channel-list">
+        <h2>Channels</h2>
+        <ul>
+            <li *ngFor="let channel of channels">
+                <a href="#">{{ channel.name }}</a>
+            </li>
+        </ul>
+    </div>
+    <div id="user-list">
+        <h2>Users</h2>
+        <ul>
+            <li *ngFor="let user of users">
+                <a href="#">{{ user.nickname }}</a>
+            </li>
+        </ul>
+    </div>
+    <div id="messages">
+        <div class="channel" *ngFor="let channel of channels">
+            <ul>
+                <li *ngFor="let message of messages|currentChannel:channel.uuid">
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

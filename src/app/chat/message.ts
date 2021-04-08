@@ -4,4 +4,5 @@ export interface Message {
     createdAt: Date;
     senderUuid: string;
     recipientUuid: string;
+    channelUuid: string;
 }

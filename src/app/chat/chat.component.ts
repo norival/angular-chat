@@ -13,6 +13,7 @@ export class ChatComponent implements OnInit {
     users: Array<User>;
     channels: Array<Channel>;
     messages: Array<Message>;
+    currentChannel: string;
 
     constructor(
         private chatService: ChatService
