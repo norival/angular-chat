@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Channel } from './channel';
 import { ChatService } from './chat.service';
 import { Message } from './message';
 import { User } from './user';
@@ -10,6 +11,7 @@ import { User } from './user';
 })
 export class ChatComponent implements OnInit {
     users: Array<User>;
+    channels: Array<Channel>;
     messages: Array<Message>;
 
     constructor(
@@ -23,6 +25,10 @@ export class ChatComponent implements OnInit {
 
         this.chatService.incomingMessages.subscribe(message => {
             this.messages.push(message);
+        });
+
+        this.chatService.channelUpdates.subscribe(channels => {
+            this.channels = channels;
         });
     }
 

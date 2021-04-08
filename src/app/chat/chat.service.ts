@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { io, Socket } from 'socket.io-client';
 import { environment } from 'src/environments/environment';
+import { Channel } from './channel';
 import { Message } from './message';
 import { User } from './user';
 
@@ -13,6 +14,7 @@ export class ChatService {
 
     incomingMessages: Observable<Message>;
     userUpdates: Observable<Array<User>>;
+    channelUpdates: Observable<Array<Channel>>;
 
     constructor() {
         this.socket = io(environment.SOCKET_ENDPOINT);
@@ -24,6 +26,10 @@ export class ChatService {
 
         this.incomingMessages = new Observable<Message>(subscriber => {
             this.socket.on('message', message => subscriber.next(message));
+        });
+
+        this.channelUpdates = new Observable<Array<Channel>>(subscriber => {
+            this.socket.on('channel.update', channels => subscriber.next(channels));
         });
     }
 
