@@ -13,7 +13,7 @@ export class ChatService {
     users: Array<User>;
     rooms: Array<Room>;
     messages: Array<Message>;
-    socket: Socket;
+    private socket: Socket;
 
     constructor() {
         this.socket = io(environment.SOCKET_ENDPOINT);
@@ -30,6 +30,22 @@ export class ChatService {
             subscriber => {
                 this.socket.on('message', message => subscriber.next(message));
             }
-        ).subscribe(message => this.messages.push(message));
+        ).subscribe(message => {
+            this.messages.push(message)
+        });
+    }
+
+    /**
+     * Send messages (public or private)
+     */
+    sendMessage(message: Message) {
+        this.socket.emit('message', message);
+    }
+
+    /**
+     * Update nickname on the server
+     */
+    updateNickname(user: User) {
+        this.socket.emit('nickname.update', user);
     }
 }
