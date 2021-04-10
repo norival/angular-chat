@@ -10,15 +10,18 @@
     <div id="user-list">
         <h2>Users</h2>
         <ul>
-            <li *ngFor="let user of users">
+            <li *ngFor="let user of users" [ngClass]="{currentUser: user.uuid == userService.currentUser.uuid}">
                 <a href="#">{{ user.nickname }}</a>
             </li>
         </ul>
     </div>
     <div id="messages">
         <div class="channel" *ngFor="let channel of channels">
-            <ul>
+            <ul [ngClass]="{ hidden: currentChannel === channel.uuid }">
                 <li *ngFor="let message of messages|currentChannel:channel.uuid">
+                    <span class="date">{{ message.createdAt }}</span>
+                    <span class="nickname">{{ message.senderUuid }}</span>
+                    {{ message.content }}
                 </li>
             </ul>
         </div>

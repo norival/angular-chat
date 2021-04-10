@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { Channel } from './channel';
 import { Message } from './message';
 import { User } from './user';
+import { UserService } from './user.service';
 
 @Injectable({
     providedIn: 'root'
@@ -16,8 +17,14 @@ export class ChatService {
     userUpdates: Observable<Array<User>>;
     channelUpdates: Observable<Array<Channel>>;
 
-    constructor() {
-        this.socket = io(environment.SOCKET_ENDPOINT);
+    constructor(
+        private userService: UserService
+    ) {
+        this.socket = io(environment.SOCKET_ENDPOINT, {
+            auth: {
+                user: this.userService.currentUser,
+            }
+        });
 
         // userlist update subscriber
         this.userUpdates = new Observable<Array<User>>(subscriber => {
@@ -38,12 +45,5 @@ export class ChatService {
      */
     sendMessage(message: Message) {
         this.socket.emit('message', message);
-    }
-
-    /**
-     * Update nickname on the server
-     */
-    updateNickname(user: User) {
-        this.socket.emit('nickname.update', user);
     }
 }

@@ -3,6 +3,7 @@ import { Channel } from './channel';
 import { ChatService } from './chat.service';
 import { Message } from './message';
 import { User } from './user';
+import { UserService } from './user.service';
 
 @Component({
     selector: 'app-chat',
@@ -16,7 +17,8 @@ export class ChatComponent implements OnInit {
     currentChannel: string;
 
     constructor(
-        private chatService: ChatService
+        private chatService: ChatService,
+        public userService: UserService
     ) { }
 
     ngOnInit(): void {
