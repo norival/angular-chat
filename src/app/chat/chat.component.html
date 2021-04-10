@@ -20,7 +20,7 @@
             <ul [ngClass]="{ hidden: currentChannel === channel.uuid }">
                 <li *ngFor="let message of messages|currentChannel:channel.uuid"
                     [ngClass]="{unread: message.unread}">
-                    <span class="date">{{ message.createdAt }}</span>
+                    <span class="date">{{ message.createdAt | date:'shortTime' }}</span>
                     <span class="nickname">{{ message.senderUuid }}</span>
                     {{ message.content }}
                 </li>

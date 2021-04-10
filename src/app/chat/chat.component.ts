@@ -11,9 +11,9 @@ import { UserService } from './user.service';
     styleUrls: ['./chat.component.scss']
 })
 export class ChatComponent implements OnInit {
-    users: Array<User>;
-    channels: Array<Channel>;
-    messages: Array<Message>;
+    users: Array<User> = [];
+    channels: Array<Channel> = [];
+    messages: Array<Message> = [];
     currentChannel: string;
 
     constructor(
@@ -32,6 +32,10 @@ export class ChatComponent implements OnInit {
 
         this.chatService.channelUpdates.subscribe(channels => {
             this.channels = channels;
+
+            if (!this.currentChannel) {
+                this.currentChannel = this.channels.find(channel => channel.name === 'General').uuid;
+            }
         });
     }
 
