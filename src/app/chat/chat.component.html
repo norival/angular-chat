@@ -3,7 +3,7 @@
         <h2>Channels</h2>
         <ul>
             <li *ngFor="let channel of channels">
-                <a href="#" (click)="setCurrentChannel(channel.uuid)">{{ channel.name }}</a>
+                <a (click)="setCurrentChannel(channel.uuid)">{{ channel.name }}</a>
             </li>
         </ul>
     </div>
@@ -17,12 +17,12 @@
     </div>
     <div id="messages">
         <div class="channel" *ngFor="let channel of channels">
-            <ul [ngClass]="{ hidden: currentChannel === channel.uuid }">
+            <ul [ngClass]="{ hidden: currentChannel != channel.uuid }">
                 <li *ngFor="let message of messages|currentChannel:channel.uuid"
                     [ngClass]="{unread: message.unread}">
                     <span class="date">{{ message.createdAt | date:'shortTime' }}</span>
                     <span class="nickname">{{ message.senderUuid }}</span>
-                    {{ message.content }}
+                    <span [innerHtml]="message.content | safeHtml"></span>
                 </li>
             </ul>
         </div>
