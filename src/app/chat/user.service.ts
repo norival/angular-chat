@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { UuidService } from '../UuidService';
 import { User } from './user';
 import { uniqueNamesGenerator, Config, adjectives, animals } from 'unique-names-generator';
+import { UuidService } from '../uuid.service';
 
 @Injectable({
     providedIn: 'root'

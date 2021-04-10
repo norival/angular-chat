@@ -5,4 +5,5 @@ export interface Message {
     senderUuid: string;
     recipientUuid: string;
     channelUuid: string;
+    unread: boolean;
 }
