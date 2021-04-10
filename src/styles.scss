@@ -1,2 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~bootstrap/dist/css/bootstrap.min.css";
+
+.currentUser {
+    border: 1px solid red;
+}
+.hidden {
+    display: none;
+}
+.date {
+    color: grey;
+    margin-right: 5px;
+}
+.nickname {
+    color: lightskyblue;
+    margin-right: 5px;
+}
