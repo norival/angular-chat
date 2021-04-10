@@ -39,4 +39,8 @@ export class ChatComponent implements OnInit {
         });
     }
 
+    setCurrentChannel(currentChannel: string) {
+        this.currentChannel = currentChannel;
+    }
+
 }

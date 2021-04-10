@@ -3,7 +3,7 @@
         <h2>Channels</h2>
         <ul>
             <li *ngFor="let channel of channels">
-                <a href="#">{{ channel.name }}</a>
+                <a href="#" (click)="setCurrentChannel(channel.uuid)">{{ channel.name }}</a>
             </li>
         </ul>
     </div>
