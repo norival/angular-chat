@@ -43,7 +43,13 @@ export class ChatService {
     /**
      * Send messages (public or private)
      */
-    sendMessage(message: Message) {
+    sendMessage(message: Message, isPrivate = false) {
+        if (isPrivate) {
+            this.socket.emit('message.private', message);
+
+            return;
+        }
+
         this.socket.emit('message', message);
     }
 }

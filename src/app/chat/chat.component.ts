@@ -69,11 +69,11 @@ export class ChatComponent implements OnInit {
             createdAt: new Date(),
             senderUuid: this.userService.currentUser.uuid,
             channelUuid: this.currentChannel,
-            recipientUuid: '',
+            recipientUuid: this.inPrivateChat ? this.currentChannel : '',
         };
 
         this.messageForm.reset();
-        this.chatService.sendMessage(message);
+        this.chatService.sendMessage(message, this.inPrivateChat);
         this.messages.push(message);
     }
 
