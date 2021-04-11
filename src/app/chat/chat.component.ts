@@ -19,6 +19,7 @@ export class ChatComponent implements OnInit {
     messages: Array<Message> = [];
     currentChannel: string;
     inPrivateChat = false;
+    baseTitle = 'Notdiscord';
 
     // messageInput = new FormControl();
     messageForm = new FormGroup({
@@ -39,7 +40,7 @@ export class ChatComponent implements OnInit {
 
         this.chatService.incomingMessages.subscribe(message => {
             this.messages.push(message);
-            // this.titleService.setTitle(`${this.titleService.getTitle()} (${this.getUnreadCount()})`);
+            this.updateTitle();
         });
 
         this.chatService.channelUpdates.subscribe(channels => {
@@ -82,6 +83,7 @@ export class ChatComponent implements OnInit {
 
     get currentMessages() {
         this.setChannelRead(this.currentChannel);
+        this.updateTitle();
 
         return this.messages.filter(msg => msg.channelUuid === this.currentChannel);
     }
@@ -104,6 +106,16 @@ export class ChatComponent implements OnInit {
 
             return msg;
         });
+    }
+
+    updateTitle() {
+        if (this.getUnreadCount()) {
+            this.titleService.setTitle(`(${this.getUnreadCount()}) ${this.baseTitle}`);
+
+            return;
+        }
+
+        this.titleService.setTitle(`${this.baseTitle}`);
     }
 
 }

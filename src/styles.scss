@@ -38,6 +38,14 @@ ul {
     margin-right: 5px;
 }
 
+.channel {
+    font-weight: bold;
+    &::before {
+        content: "#";
+        display: inline-block;
+    }
+}
+
 .buttonList {
     li {
         display: block;
