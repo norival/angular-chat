@@ -17,7 +17,7 @@ export class MessageUSerPipe implements PipeTransform {
             return user.nickname;
         }
 
-        return 'Unknown user';
+        return 'Deleted user';
     }
 
 }
