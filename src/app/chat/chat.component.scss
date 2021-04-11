@@ -1,0 +1,20 @@
+.hasUnread {
+    .button {
+        color: darkorange;
+    }
+    
+    .unreadCount {
+        display: block;
+    }
+}
+.unreadCount {
+    // border: 1px solid red;
+    background-color: firebrick;
+    color: white;
+    display: none;
+    position: absolute;
+    right: 0;
+    font-size: 0.6em;
+    border-radius: 2px;
+    padding: 2px;
+}

@@ -78,13 +78,25 @@ export class ChatComponent implements OnInit {
     }
 
     get currentMessages() {
+        this.setChannelRead(this.currentChannel);
+
         return this.messages.filter(msg => msg.channelUuid === this.currentChannel);
     }
 
-    hasUnread(channelUuid: string) {
+    getUnreadCount(channelUuid: string) {
         return this.messages.filter(msg => {
             return msg.channelUuid === channelUuid && msg.unread === true;
-        }).length > 0;
+        }).length;
+    }
+
+    setChannelRead(channelUuid: string) {
+        this.messages.map(msg => {
+            if (msg.channelUuid === channelUuid) {
+                msg.unread = false;
+            }
+
+            return msg;
+        });
     }
 
 }

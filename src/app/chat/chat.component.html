@@ -5,9 +5,12 @@
             <li *ngFor="let channel of channels"
                 [ngClass]="{
                     currentChannel: !inPrivateChat && channel.uuid == currentChannel,
-                    hasUnread: hasUnread(channel.uuid)
+                    hasUnread: getUnreadCount(channel.uuid) > 0
                 }">
-                <button class="button" (click)="setCurrentChannel(channel.uuid)">{{ channel.name }}</button>
+                <button class="button" (click)="setCurrentChannel(channel.uuid)">
+                    {{ channel.name }}
+                    <span class="unreadCount">{{ getUnreadCount(channel.uuid) }}</span>
+                </button>
             </li>
         </ul>
     </div>
@@ -17,13 +20,14 @@
             <li *ngFor="let user of users"
                 [ngClass]="{
                     currentChannel: user.uuid == currentChannel,
-                    hasUnread: hasUnread(user.uuid)
+                    hasUnread: getUnreadCount(user.uuid) > 0
                 }">
                 <button class="button"
                         (click)="setCurrentChannel(user.uuid)"
                         [disabled]="user.uuid == userService.currentUser.uuid">
                     {{ user.nickname }}
                     <span *ngIf="user.uuid == userService.currentUser.uuid">(you)</span>
+                    <span class="unreadCount">{{ getUnreadCount(user.uuid) }}</span>
                 </button>
             </li>
         </ul>
