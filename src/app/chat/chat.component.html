@@ -37,7 +37,7 @@
                        type="text"
                        id="message-input"
                        formControlName="message"
-                       placeholder="Send a message to"
+                       placeholder="Send a message to {{ currentChannel | channelName:channels:users }}"
                        autocomplete="off">
             </div>
             <button class="btn btn-success">Send</button>
