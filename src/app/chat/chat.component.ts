@@ -81,4 +81,10 @@ export class ChatComponent implements OnInit {
         return this.messages.filter(msg => msg.channelUuid === this.currentChannel);
     }
 
+    hasUnread(channelUuid: string) {
+        return this.messages.filter(msg => {
+            return msg.channelUuid === channelUuid && msg.unread === true;
+        }).length > 0;
+    }
+
 }
