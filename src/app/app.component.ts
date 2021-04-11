@@ -7,7 +7,7 @@ import { UserService } from './chat/user.service';
     styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-    title = 'Chat application';
+    title = 'Skynet chat';
 
     constructor(
         private userService: UserService

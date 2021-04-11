@@ -17,6 +17,7 @@ export class ChatComponent implements OnInit {
     channels: Array<Channel> = [];
     messages: Array<Message> = [];
     currentChannel: string;
+    inPrivateChat = false;
 
     // messageInput = new FormControl();
     messageForm = new FormGroup({
@@ -49,6 +50,15 @@ export class ChatComponent implements OnInit {
 
     setCurrentChannel(currentChannel: string) {
         this.currentChannel = currentChannel;
+
+        const channel = this.channels.find(ch => this.currentChannel === ch.uuid);
+        if (!channel) {
+            this.inPrivateChat = true;
+
+            return;
+        }
+
+        this.inPrivateChat = false;
     }
 
     onSendMessage() {

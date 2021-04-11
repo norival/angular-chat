@@ -2,7 +2,7 @@
     <div id="channel-list">
         <h2>Channels</h2>
         <ul class="buttonList">
-            <li *ngFor="let channel of channels" [ngClass]="{currentChannel: channel.uuid == currentChannel}">
+            <li *ngFor="let channel of channels" [ngClass]="{currentChannel: !inPrivateChat && channel.uuid == currentChannel}">
                 <button class="button" (click)="setCurrentChannel(channel.uuid)">{{ channel.name }}</button>
             </li>
         </ul>
@@ -10,8 +10,14 @@
     <div id="user-list">
         <h2>Users</h2>
         <ul class="buttonList">
-            <li *ngFor="let user of users" [ngClass]="{currentUser: user.uuid == userService.currentUser.uuid}">
-                <button class="button">{{ user.nickname }}</button>
+            <li *ngFor="let user of users"
+                [ngClass]="{currentChannel: user.uuid == currentChannel}">
+                <button class="button"
+                        (click)="setCurrentChannel(user.uuid)"
+                        [disabled]="user.uuid == userService.currentUser.uuid">
+                    {{ user.nickname }}
+                    <span *ngIf="user.uuid == userService.currentUser.uuid">(you)</span>
+                </button>
             </li>
         </ul>
     </div>
