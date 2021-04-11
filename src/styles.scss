@@ -1,9 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
-@import "~bootstrap/dist/css/bootstrap.min.css";
+// @import "~bootstrap/dist/css/bootstrap.min.css";
+@import "~bootswatch/dist/slate/variables";
+@import "~bootstrap/scss/bootstrap";
+@import "~bootswatch/dist/slate/bootswatch";
 
-.currentUser {
-    border: 1px solid red;
+ul {
+    list-style-type: none;
+    padding: 0;
 }
+
 .hidden {
     display: none;
 }
@@ -15,3 +20,29 @@
     color: lightskyblue;
     margin-right: 5px;
 }
+
+.buttonList {
+    li {
+        display: block;
+        padding: 0;
+    }
+
+    .button {
+        background: none;
+        border: none;
+        color: darkgrey;
+        font-weight: bold;
+        font-size: 1.1em;
+        padding: 3px;
+        display: block;
+        width: 100%;
+        text-align: left;
+    }
+
+    .currentUser, .currentChannel {
+        .button {
+            color: whitesmoke;
+        }
+    }
+}
+
