@@ -11,7 +11,13 @@ export class MessageUSerPipe implements PipeTransform {
             return 'Skynet';
         }
 
-        return users.filter(u => u.uuid === uuid)[0]?.nickname;
+        const user = users.find(u => u.uuid === uuid);
+
+        if (user) {
+            return user.nickname;
+        }
+
+        return 'Unknown user';
     }
 
 }
