@@ -16,15 +16,25 @@
         </ul>
     </div>
     <div id="messages">
-        <div class="channel" *ngFor="let channel of channels">
-            <ul [ngClass]="{ hidden: currentChannel != channel.uuid }">
-                <li *ngFor="let message of messages|currentChannel:channel.uuid"
-                    [ngClass]="{unread: message.unread}">
-                    <span class="date">{{ message.createdAt | date:'shortTime' }}</span>
-                    <span class="nickname">{{ message.senderUuid }}</span>
-                    <span [innerHtml]="message.content | safeHtml"></span>
-                </li>
-            </ul>
-        </div>
+        <ul>
+            <li *ngFor="let message of currentMessages">
+                <span class="date">{{ message.createdAt | date:'shortTime' }}</span>
+                <span class="nickname">{{ message.senderUuid }}</span>
+                <span [innerHtml]="message.content | safeHtml"></span>
+            </li>
+        </ul>
+        <form class="form"
+              (ngSubmit)="onSendMessage()"
+              [formGroup]="messageForm">
+            <div class="form-group">
+                <input class="form-control"
+                       type="text"
+                       id="message-input"
+                       formControlName="message"
+                       placeholder="Send a message to"
+                       autocomplete="off">
+            </div>
+            <button class="btn btn-success">Send</button>
+        </form>
     </div>
 </div>

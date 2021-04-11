@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
+import { UuidService } from '../uuid.service';
 import { Channel } from './channel';
 import { ChatService } from './chat.service';
 import { Message } from './message';
@@ -16,9 +18,15 @@ export class ChatComponent implements OnInit {
     messages: Array<Message> = [];
     currentChannel: string;
 
+    // messageInput = new FormControl();
+    messageForm = new FormGroup({
+        message: new FormControl(),
+    });
+
     constructor(
         private chatService: ChatService,
-        public userService: UserService
+        public userService: UserService,
+        private uuid: UuidService
     ) { }
 
     ngOnInit(): void {
@@ -41,6 +49,26 @@ export class ChatComponent implements OnInit {
 
     setCurrentChannel(currentChannel: string) {
         this.currentChannel = currentChannel;
+    }
+
+    onSendMessage() {
+        const message: Message = {
+            uuid: this.uuid.generate(),
+            unread: false,
+            content: this.messageForm.value.message,
+            createdAt: new Date(),
+            senderUuid: this.userService.currentUser.uuid,
+            channelUuid: this.currentChannel,
+            recipientUuid: '',
+        };
+
+        this.messageForm.reset();
+        this.chatService.sendMessage(message);
+        this.messages.push(message);
+    }
+
+    get currentMessages() {
+        return this.messages.filter(msg => msg.channelUuid === this.currentChannel);
     }
 
 }
