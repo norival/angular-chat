@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import { UuidService } from '../uuid.service';
 import { Channel } from './channel';
 import { ChatService } from './chat.service';
@@ -27,7 +28,8 @@ export class ChatComponent implements OnInit {
     constructor(
         private chatService: ChatService,
         public userService: UserService,
-        private uuid: UuidService
+        private uuid: UuidService,
+        private titleService: Title
     ) { }
 
     ngOnInit(): void {
@@ -37,6 +39,7 @@ export class ChatComponent implements OnInit {
 
         this.chatService.incomingMessages.subscribe(message => {
             this.messages.push(message);
+            // this.titleService.setTitle(`${this.titleService.getTitle()} (${this.getUnreadCount()})`);
         });
 
         this.chatService.channelUpdates.subscribe(channels => {
@@ -83,7 +86,11 @@ export class ChatComponent implements OnInit {
         return this.messages.filter(msg => msg.channelUuid === this.currentChannel);
     }
 
-    getUnreadCount(channelUuid: string) {
+    getUnreadCount(channelUuid: string = null) {
+        if (!channelUuid) {
+            return this.messages.filter(msg => msg.unread === true).length;
+        }
+
         return this.messages.filter(msg => {
             return msg.channelUuid === channelUuid && msg.unread === true;
         }).length;

@@ -1,57 +1,63 @@
-<div id="chat">
-    <div id="channel-list">
-        <h2>Channels</h2>
-        <ul class="buttonList">
-            <li *ngFor="let channel of channels"
-                [ngClass]="{
-                    currentChannel: !inPrivateChat && channel.uuid == currentChannel,
-                    hasUnread: getUnreadCount(channel.uuid) > 0
-                }">
-                <button class="button" (click)="setCurrentChannel(channel.uuid)">
-                    {{ channel.name }}
-                    <span class="unreadCount">{{ getUnreadCount(channel.uuid) }}</span>
-                </button>
-            </li>
-        </ul>
+<div id="chat" class="row h-100">
+    <div class="col-12 col-sm-4 col-lg-2" id="lists">
+        <div id="channel-list">
+            <h2>Channels</h2>
+            <ul class="buttonList">
+                <li *ngFor="let channel of channels"
+                    [ngClass]="{
+                        currentChannel: !inPrivateChat && channel.uuid == currentChannel,
+                        hasUnread: getUnreadCount(channel.uuid) > 0
+                    }">
+                    <button class="button" (click)="setCurrentChannel(channel.uuid)">
+                        {{ channel.name }}
+                        <span class="unreadCount">{{ getUnreadCount(channel.uuid) }}</span>
+                    </button>
+                </li>
+            </ul>
+        </div>
+        <div id="user-list">
+            <h2>Users</h2>
+            <ul class="buttonList">
+                <li *ngFor="let user of users"
+                    [ngClass]="{
+                        currentChannel: user.uuid == currentChannel,
+                        hasUnread: getUnreadCount(user.uuid) > 0
+                    }">
+                    <button class="button"
+                            (click)="setCurrentChannel(user.uuid)"
+                            [disabled]="user.uuid == userService.currentUser.uuid">
+                        {{ user.nickname }}
+                        <span *ngIf="user.uuid == userService.currentUser.uuid">(you)</span>
+                        <span class="unreadCount">{{ getUnreadCount(user.uuid) }}</span>
+                    </button>
+                </li>
+            </ul>
+        </div>
     </div>
-    <div id="user-list">
-        <h2>Users</h2>
-        <ul class="buttonList">
-            <li *ngFor="let user of users"
-                [ngClass]="{
-                    currentChannel: user.uuid == currentChannel,
-                    hasUnread: getUnreadCount(user.uuid) > 0
-                }">
-                <button class="button"
-                        (click)="setCurrentChannel(user.uuid)"
-                        [disabled]="user.uuid == userService.currentUser.uuid">
-                    {{ user.nickname }}
-                    <span *ngIf="user.uuid == userService.currentUser.uuid">(you)</span>
-                    <span class="unreadCount">{{ getUnreadCount(user.uuid) }}</span>
-                </button>
-            </li>
-        </ul>
-    </div>
-    <div id="messages">
-        <ul>
-            <li *ngFor="let message of currentMessages">
-                <span class="date">{{ message.createdAt | date:'shortTime' }}</span>
-                <span class="nickname">{{ message.senderUuid | messageUSer:users }}</span>
-                <span [innerHtml]="message.content | safeHtml"></span>
-            </li>
-        </ul>
-        <form class="form"
-              (ngSubmit)="onSendMessage()"
-              [formGroup]="messageForm">
-            <div class="form-group">
-                <input class="form-control"
-                       type="text"
-                       id="message-input"
-                       formControlName="message"
-                       placeholder="Send a message to {{ currentChannel | channelName:channels:users }}"
-                       autocomplete="off">
-            </div>
-            <button class="btn btn-success">Send</button>
-        </form>
+    <div class="col-12 col-sm-8 col-lg-10">
+        <div id="messages">
+            <ul>
+                <li *ngFor="let message of currentMessages">
+                    <span class="date">{{ message.createdAt | date:'shortTime' }}</span>
+                    <span class="nickname">{{ message.senderUuid | messageUSer:users }}</span>
+                    <span [innerHtml]="message.content | safeHtml"></span>
+                </li>
+            </ul>
+            <form class="form"
+                  (ngSubmit)="onSendMessage()"
+                  [formGroup]="messageForm">
+                <div class="row">
+                    <div class="form-group col-11">
+                        <input class="form-control"
+                               type="text"
+                               id="message-input"
+                               formControlName="message"
+                               placeholder="Send a message to {{ currentChannel | channelName:channels:users }}"
+                               autocomplete="off">
+                    </div>
+                    <button class="btn btn-success col-1">Send</button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>

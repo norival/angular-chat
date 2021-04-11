@@ -4,6 +4,23 @@
 @import "~bootstrap/scss/bootstrap";
 @import "~bootswatch/dist/slate/bootswatch";
 
+body {
+    height: 100vh;
+}
+
+main {
+    height: 100vh;
+}
+
+.titleWrapper {
+    background-color: lighten(black, 5);
+    padding: 10px 0;
+
+    h1 {
+        margin: 0;
+    }
+}
+
 ul {
     list-style-type: none;
     padding: 0;
