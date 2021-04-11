@@ -19,7 +19,7 @@
         <ul>
             <li *ngFor="let message of currentMessages">
                 <span class="date">{{ message.createdAt | date:'shortTime' }}</span>
-                <span class="nickname">{{ message.senderUuid }}</span>
+                <span class="nickname">{{ message.senderUuid | messageUSer:users }}</span>
                 <span [innerHtml]="message.content | safeHtml"></span>
             </li>
         </ul>

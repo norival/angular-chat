@@ -7,13 +7,15 @@ import { AppComponent } from './app.component';
 import { ChatComponent } from './chat/chat.component';
 import { CurrentChannelPipe } from './chat/current-channel.pipe';
 import { SafeHtmlPipe } from './safe-html.pipe';
+import { MessageUSerPipe } from './message-user.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     ChatComponent,
     CurrentChannelPipe,
-    SafeHtmlPipe
+    SafeHtmlPipe,
+    MessageUSerPipe
   ],
   imports: [
     BrowserModule,
